@@ -1,10 +1,11 @@
 <?php
 
 require_once 'models.php';
-$id = filter($_GET['ubah']);
-if (isset($_GET['ubah']) == query("SELECT id FROM data_siswa WHERE id = $id")) {
+$id =  filter($_GET['ubah']);
 
-  $ubah = query("SELECT * FROM data_siswa WHERE id = $id")[0];
+if (isset($_GET['ubah']) == query("SELECT id FROM data_siswa WHERE id = '$id'")) {
+
+  $ubah = query("SELECT * FROM data_siswa WHERE id = '$id'")[0];
 } else {
   header("Location: index.php");
 }

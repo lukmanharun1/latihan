@@ -5,6 +5,7 @@ $database = mysqli_connect("localhost", "root", "", "smk_media_informatika");
 function query($data)
 {
   global $database;
+
   $hasil = mysqli_query($database, $data);
   $rows = [];
   while ($row = mysqli_fetch_assoc($hasil)) {
@@ -18,9 +19,8 @@ function query($data)
 function filter($data)
 {
   global $database;
-  return mysqli_escape_string($database, htmlspecialchars($data));
+  return htmlspecialchars(mysqli_escape_string($database, $data));
 }
-
 
 function tambah($data)
 {
@@ -40,7 +40,7 @@ function hapus($data)
 {
   global $database;
   $id = filter($data);
-  $query = "DELETE FROM data_siswa WHERE id = $id";
+  $query = "DELETE FROM data_siswa WHERE id = '$id'";
   mysqli_query($database, $query);
   return mysqli_affected_rows($database);
 }
@@ -56,7 +56,7 @@ function ubah($post, $get)
   $id = filter($get['ubah']);
 
 
-  $query = "UPDATE data_siswa SET nama = '$nama', alamat = '$alamat', kelas = '$kelas', jenis_kelamin = '$jenis_kelamin', jurusan = '$jurusan' WHERE id = $id";
+  $query = "UPDATE data_siswa SET nama = '$nama', alamat = '$alamat', kelas = '$kelas', jenis_kelamin = '$jenis_kelamin', jurusan = '$jurusan' WHERE id = '$id'";
   mysqli_query($database, $query);
   return mysqli_affected_rows($database);
 }
